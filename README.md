@@ -57,6 +57,59 @@ Editar o pom.xml e trocar:
 </pre>
 
 
+## Mudança na forma de passar parâmetros nas requisições
+
+### Endpoints atualizados para usar **path variables**, permitindo acessar usuários por **id** ou **email** nos métodos **GET**, **PUT** e **DELETE**.
+
+No projeto anterior, os endpoints usavam **query parameters** para identificar usuários:
+´´´
+GET http://localhost:8080/usuario?id=1
+
+GET http://localhost:8080/usuario?email=codorna@coturnix.com
+´´´
+Agora, os endpoints foram alterados para usar **path variables**, permitindo acessar usuários por **email** ou **id** nos métodos **GET**, **PUT** e **DELETE**.
+´´´
+GET http://localhost:8080/usuario/id/1
+
+GET http://localhost:8080/usuario/email/codorna@coturnix.com
+´´´
+## Alterações no controller
+
+- Os métodos **GET, PUT e DELETE** agora recebem `id` ou `email` como **@PathVariable** em vez de **@RequestParam**.
+- Exemplo de mapeamento atualizado:
+
+```java
+// Buscar usuário por ID
+@GetMapping("/id/{id}")
+public ResponseEntity<Usuario> buscarUsuarioPorId(@PathVariable Integer id)
+
+// Buscar usuário por email
+@GetMapping("/email/{email}")
+public ResponseEntity<Usuario> buscarUsuarioPorEmail(@PathVariable String email)
+
+// Atualizar usuário por ID
+@PutMapping("/id/{id}")
+public ResponseEntity<Void> atualizarUsuarioPorId(@PathVariable Integer id, @RequestBody Usuario usuario)
+
+// Atualizar usuário por email
+@PutMapping("/email/{email}")
+public ResponseEntity<Void> atualizarUsuarioPorEmail(@PathVariable String email, @RequestBody Usuario usuario)
+
+// Deletar usuário por ID
+@DeleteMapping("/id/{id}")
+public ResponseEntity<Void> deletarUsuarioPorId(@PathVariable Integer id)
+
+// Deletar usuário por email
+@DeleteMapping("/email/{email}")
+public ResponseEntity<Void> deletarUsuarioPorEmail(@PathVariable String email)
+```
+
+
+
+
+
+
+
 ## DeleteBy - colocado duas rotas: ID e EMAIL
 
 Como temos duas formas de delete: uma por ```id``` e outra por ```email```, precisamos separar as rotas para evitar conflito.
@@ -113,3 +166,8 @@ spring.h2.console.path=/h2-console
 
 ![image](https://github.com/user-attachments/assets/a093f4c4-39f5-4413-a6ff-b2b92ae504dd)
 
+### GET url
+
+http://localhost:8080/usuario?email=dinodasilva@ssauro.com
+
+![http://localhost:8080/usuario?email=dinodasilva@ssauro.com](image.png)

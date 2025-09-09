@@ -1,0 +1,55 @@
+### Atualizar usuário com ID
+PUT http://localhost:8080/usuario/id/2
+Content-Type: application/json
+
+{
+  "email": "codornaatualizado@org.com"  
+}
+
+### testar alterar so um paramentro
+
+PUT http://localhost:8080/usuario/id/1
+Content-Type: application/json
+
+{
+  "nome": "Codorna Atualizado",
+  "email": "codornaatualizado@org.com"  
+}
+
+
+### Atualizar usuário com ID
+### Eh para dar erro HTTP/1.1 500 
+###pois o @Column(name = "email", unique = true ) e esse email deveria estar em outro usuario
+PUT http://localhost:8080/usuario/id/3
+Content-Type: application/json
+
+{
+  "email": "alice@nailhadamagia.com"  
+}
+
+### email que ninguem tem
+PUT http://localhost:8080/usuario/id/3
+Content-Type: application/json
+
+{
+  "email": "aalliiccee@nailhadamagia.com"  
+}
+
+
+###
+
+
+PUT http://localhost:8080/usuario/id/3
+Content-Type: application/json
+
+{
+  "email": "dinodasilva@ssauro.com"  
+}
+
+### Verificar se PUT OK via email
+GET http://localhost:8080/usuario/email/dinodasilva@ssauro.com
+
+
+
+### Verificar se PUT OK via ID
+GET http://localhost:8080/usuario/id/3

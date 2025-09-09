@@ -1,0 +1,33 @@
+POST http://localhost:8080/usuario
+Content-Type: application/json
+
+{
+  "nome":"Codorna",
+  "email":"codorna@coturnix.com"
+}
+
+
+###
+
+POST http://localhost:8080/usuario
+Content-Type: application/json
+
+{
+  "nome":"Alice",
+  "email":"alice@nailhadamagia.com"
+}
+
+###
+
+POST http://localhost:8080/usuario
+Content-Type: application/json
+
+{
+  "nome":"Dino",
+  "email":"dinodasilva@ssauro.com"
+}
+
+
+### verificar se post OK
+
+GET http://localhost:8080/usuario/email/dinodasilva@ssauro.com

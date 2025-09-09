@@ -26,6 +26,12 @@ public class UsuarioService {
         );
     }//buscarUsuarioPorEmail
 
+    public Usuario buscarUsuarioPorId(Integer id){
+        return repository.findById(id).orElseThrow(
+            () -> new RuntimeException("Id não encontrado")
+        );
+    }//buscarUsuarioPorEmail
+
     public void deletarUsuarioPorEmail(String email){
         repository.deleteByEmail(email);
     }//deletarUsuarioPorEmail
@@ -64,6 +70,11 @@ public class UsuarioService {
             repository.saveAndFlush(usuarioAtualizado);
 
     }//atualizarUsuarioPorId
+
+    public boolean existsByEmail(String email) {
+        // Checar se o novo email já existe - tentei ERRONEAMENTE atualizar email de um usuario em outro
+        return repository.existsByEmail(email);
+    }//existsByEmail
 
 
 }//UsuarioService
