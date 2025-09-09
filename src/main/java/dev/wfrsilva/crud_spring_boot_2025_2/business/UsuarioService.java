@@ -31,4 +31,35 @@ public class UsuarioService {
     }//deletarUsuarioPorEmail
 
 
+    public void atualizarUsuarioPorEmail(String email, Usuario usuario){
+        Usuario usuarioEntity = buscarUsuarioPorEmail(email);
+        Usuario usuarioAtualizado = Usuario.builder()
+            .email(email)
+            .nome(usuario.getNome() != null ?
+                        usuario.getNome() : usuarioEntity.getNome())
+            .id(usuarioEntity.getId())
+            .build();
+
+            repository.saveAndFlush(usuarioAtualizado);
+
+    }//atualizarUsuarioPorEmail
+
+
+    public void atualizarUsuarioPorId(Integer id, Usuario usuario){
+        Usuario usuarioEntity = repository.findById(id).orElseThrow(
+            () -> new RuntimeException("Usuário não encontrado.")
+        );
+        Usuario usuarioAtualizado  = Usuario.builder()
+            .email(usuario.getEmail() != null?
+                        usuario.getEmail() : usuarioEntity.getEmail())
+            .nome(usuario.getNome() != null ?
+                        usuario.getNome() : usuarioEntity.getNome())
+            .id(usuarioEntity.getId())
+            .build();
+
+            repository.saveAndFlush(usuarioAtualizado);
+
+    }//atualizarUsuarioPorId
+
+
 }//UsuarioService
