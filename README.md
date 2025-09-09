@@ -15,6 +15,71 @@ Vamos construir um CRUD completo com Java e Spring Boot em 2025, usando as novid
 https://start.spring.io/
 
 
+## Rodar projeto no WSL
+
+wendel@Wendel:~/cursosSpring/crud-spring-boot-2025-2$ ```chmod +x mvnw```
+wendel@Wendel:~/cursosSpring/crud-spring-boot-2025-2$ ```mvn spring-boot:run```
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ----------------< dev.wfrsilva:crud-spring-boot-2025-2 >----------------
+[INFO] Building crud-spring-boot-2025-2 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+
+(...)
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+
+(...)
+
+ ### ERRO : version 24 not supported
+
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.0:compile (default-compile) on project crud-spring-boot-2025-2: Fatal error compiling: error: release version 24 not supported -> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR]
+
+
+Isso significa que o teu projeto está configurado para usar Java 24 
+(no pom.xml tem **<java.version>24</java.version>** ), mas no WSL você não tem o **JDK 24** instalado.
+
+### SOLUÇÃO : Ajustar o projeto para usar Java 21 (LTS) ou 17 (LTS)
+Para nao precisar atualziar o WSL no momento para java 24, mais facil reconfigurar o projeto para java **17** - tentado java 21 e WSL ainda nao aceitou.
+
+Editar o pom.xml e trocar:
+
+<pre>
+<properties>
+    <java.version>17</java.version>
+</properties>
+</pre>
+
+
+## DeleteBy - colocado duas rotas: ID e EMAIL
+
+Como temos duas formas de delete: uma por ```id``` e outra por ```email```, precisamos separar as rotas para evitar conflito.
+
+### @DeleteMapping("/usuario/id/{id}")
+```
+    @DeleteMapping("/usuario/id/{id}")
+    public ResponseEntity<Void> deletarUsuarioPorId(@RequestParam Integer id){
+        usuarioService.deletarUsuarioPorId(id);
+        return ResponseEntity.ok().build();
+    }//deletarUsuarioPorId
+
+```
+
+### @DeleteMapping("/usuario/email/{email}")
+```
+    @DeleteMapping("/usuario/email/{email}")
+    public ResponseEntity<Void> deletarUsuarioPorEmail(@RequestParam String email){
+        usuarioService.deletarUsuarioPorEmail(email);
+        return ResponseEntity.ok().build();
+    }//deletarUsuarioPorEmail
+```
+
 ## Arquivos .http (postman)
 
 Os arquivos `.http` são uma  alternativa ao Postman.

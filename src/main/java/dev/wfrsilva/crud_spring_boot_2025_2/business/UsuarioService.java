@@ -9,7 +9,7 @@ import dev.wfrsilva.crud_spring_boot_2025_2.infrastructure.repository.UsuarioRep
 public class UsuarioService {
     
     //injetar dependencia repository
-    //03 opcoes: 1- autowired, 2- args lombok, 3- construtor manual
+    //03 opcoes: 1- autowired, 2- @requiredArgsConstructor lombok, 3- construtor manual
     private final UsuarioRepository repository;
 
     public UsuarioService(UsuarioRepository repository){
@@ -29,6 +29,10 @@ public class UsuarioService {
     public void deletarUsuarioPorEmail(String email){
         repository.deleteByEmail(email);
     }//deletarUsuarioPorEmail
+
+    public void deletarUsuarioPorId(Integer id){
+        repository.deleteById(id);
+    }//deletarUsuarioPorId
 
 
     public void atualizarUsuarioPorEmail(String email, Usuario usuario){
