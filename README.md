@@ -10,6 +10,10 @@ Inspirado no video do canal [javanauta](https://www.youtube.com/@javanauta)
 
 Vamos construir um CRUD completo com Java e Spring Boot em 2025, usando as novidades da JDK 23.
 
+## String initializr
+
+https://start.spring.io/
+
 
 ## Arquivos .http (postman)
 
